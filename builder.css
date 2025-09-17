@@ -1,0 +1,341 @@
+.builder-wrap { padding: 1rem; }
+.builder-header { margin-bottom: 0.75rem; }
+.builder-title { margin: 0 0 4px 0; font-size: 20px; }
+.builder-step-title { font-weight: 600; margin-bottom: 2px; }
+.builder-subtitle { color: #667085; font-size: 14px; }
+
+.options-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.modifier-toolbar {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.mode-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #bbb;
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mode-btn.active {
+  border-color: #2d7ef7;
+  box-shadow: 0 0 0 2px rgba(45,126,247,.15);
+}
+
+.modifier-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+.back-btn, .continue-btn {
+    padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  height: 65px;
+  width: 180px;
+  border-radius: 7px;
+}
+.back-btn {
+  font-weight: bold;
+  background-color: white;
+  border: 2px solid black;
+}
+
+.continue-btn {
+  font-weight: bold;
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+.continue-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.muted { color: #98a2b3; font-size: 13px; }
+
+/* builder.css additions */
+.mods-grid { display: grid; gap: 10px; }
+.mod-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px; border:1px solid #eee; border-radius:12px; }
+.mod-name { font-weight:500; }
+.mod-price { color:#666; margin-left:6px; font-weight:400; }
+.mod-tag { margin-left:8px; font-size:11px; padding:2px 6px; border-radius:999px; border:1px solid #ddd; }
+.mode-pills { display:flex; gap:6px; flex-wrap:wrap; }
+.pill { padding:6px 10px; border-radius:999px; border:1px solid #ddd; background:#fff; cursor:pointer; }
+.pill.active { border-color:#111; }
+
+/* --- Foodhub-ish modifiers grid --- */
+
+/* make tiles clearly clickable and ensure nothing blocks clicks */
+.fh-mods { position:relative; z-index:0; }
+.fh-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:12px; }
+.fh-tile {
+  cursor:pointer; user-select:none; pointer-events:auto;
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:16px; border-radius:10px; border:1px solid #d9dfec;
+  background:#3e5b87; color:#fff; text-align:left; min-height:72px;
+}
+.fh-tile.selected { outline:2px solid #fff; box-shadow:0 0 0 2px rgba(255,255,255,.35) inset; }
+.fh-tile.crust { background:#2f4a73; }
+.fh-title { font-weight:600; }
+.fh-price { font-size:12px; opacity:.9; align-self:flex-end; margin-top:6px; }
+.fh-footer { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px; }
+.fh-btn.big { padding:14px 10px; border-radius:10px; border:1px solid burlywood; background:#fff; font-weight:600; cursor:pointer; }
+
+.fh-btn.big.active { background:burlywood; color:#fff; border-color:red; } /* highlight active mode */
+
+.fh-mode-hint { font-size:12px; color:#666; }
+
+
+/* NEW */
+
+
+/* ================= ONLY TOPPINGS STEP ================= */
+/* parent div you've already got: <div class="step-body step--toppings"> … */
+.step-body.step--toppings{
+  --topping-gap: 5px;       /* tile spacing */
+  --topping-h: 66px;         /* tile height */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* grid only inside toppings step */
+.step-body.step--toppings .fh-grid{
+  display: grid;
+  gap: var(--topping-gap);
+  grid-template-columns: repeat(5, minmax(0,1fr));  /* laptops */
+  grid-auto-rows: var(--topping-h);
+  align-content: start;
+  min-width: 0;
+}
+
+/* responsive columns (Foodhub feel) */
+@media (max-width:1279px){ .step-body.step--toppings .fh-grid{ grid-template-columns: repeat(4,1fr); } }
+@media (max-width:1099px){ .step-body.step--toppings .fh-grid{ grid-template-columns: repeat(3,1fr); } }
+@media (max-width:899px) { .step-body.step--toppings .fh-grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width:700px) { .step-body.step--toppings .fh-grid{ grid-template-columns: 1fr; } }
+
+/* tiles (buttons) */
+.step-body.step--toppings .fh-tile{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  height: 100%;
+
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.06);
+  background: #2c7da0;
+  color:#fff;
+  font-weight:700;
+  padding: 10px 14px;
+
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  transition: box-shadow .12s ease, transform .06s ease;
+  width: 100%;                 /* prevent skinny buttons */
+}
+.step-body.step--toppings .fh-tile:hover{
+  box-shadow: 0 4px 14px rgba(0,0,0,.12);
+  transform: translateY(-1px);
+}
+
+.step-body.step--toppings .fh-tile.crust{
+  background:#2c7da0;
+}
+
+/* left text + right price */
+.step-body.step--toppings .fh-title{
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.step-body.step--toppings .fh-price{
+  margin-left:auto; font-weight:700; opacity:.95;
+}
+
+/* ===== mode bar stays separate, not part of grid ===== */
+.step-body.step--toppings .fh-footer{
+  display:flex; gap:10px; flex-wrap:wrap; margin-top:4px;
+}
+.step-body.step--toppings .fh-btn.big{
+  border-radius:10px; padding:10px 16px; font-weight:700;
+  border:1px solid rgba(0,0,0,.08); background:#f2f5f8; color:#1d2b38;
+  cursor:pointer;
+}
+
+
+/* Toppings footer controls — force bigger size */
+.step-body.step--toppings .fh-footer{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  align-items:center;
+}
+
+.step-body.step--toppings .fh-footer .fh-btn.big{
+  padding:14px 18px !important;   /* force bigger padding */
+  min-width:72px !important;       /* button width */
+  height:48px !important;          /* button height */
+  font-size:16px !important;
+  line-height:1 !important;
+  border-radius:10px !important;
+  border:1px solid burlywood !important;
+  background:#fff !important;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.step-body.step--toppings .fh-footer .fh-btn.big.active{
+  background:burlywood !important;
+  color:#fff !important;
+  border-color:red !important;
+}
+
+
+
+
+.step-body.step--toppings .fh-mode-hint{ color:#55626f; font-size:.92rem; }
+
+@media (max-width: 768px) {
+  .step-body.step--toppings .fh-footer .fh-btn.big {
+    min-width: 60px !important;
+    height: 42px !important;
+    font-size: 14px !important;
+    padding: 10px 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .step-body.step--toppings .fh-footer {
+    gap: 8px;
+  }
+  .step-body.step--toppings .fh-footer .fh-btn.big {
+    min-width: 50px !important;
+    height: 38px !important;
+    font-size: 13px !important;
+    padding: 8px 12px !important;
+
+  }
+}
+
+
+
+/* ✅ Global Add More button styling for all steps */
+.fh-tile.add-more,
+.category-tile.add-more {
+  background-color: white !important;
+  color: #28a745 !important;
+  border: 2px solid #28a745 !important;
+  font-weight: 600 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px !important;
+  height: 60px !important;
+  padding: 1rem !important;
+  cursor: pointer;
+  border-radius: 12px !important;
+  transition: background 0.2s ease;
+}
+
+/* Hover effect */
+.fh-tile.add-more:hover,
+.category-tile.add-more:hover {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+/* Chip-like Add More (same as you shared) */
+.category-tile.add-more, .fh-grid .category-tile.add-more {
+  background-color: #fff;
+  color: #28a745;
+  border: 2px solid #28a745;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 50px;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+.category-tile.add-more:hover, .fh-grid .category-tile.add-more:hover {
+  background: #f6fff7;
+}
+
+
+/* small edit affordance inside each tile title row */
+.fh-title-row{ display:flex; align-items:center; justify-content:space-between; gap:6px; }
+.fh-edit-dot{ font-weight:700; opacity:.55; cursor:pointer; padding:0 6px; line-height:1; }
+.fh-edit-dot:hover{ opacity:1; }
+
+/* ensure Add More tile inside grid inherits your big green-outlined style */
+.fh-grid .fh-addmore-tile{
+  display:flex; align-items:center; justify-content:center;
+  width:auto; height:auto; /* grid controls tile height */
+}
+
+/* chip ko corner me pin karne ke liye */
+.product-card,
+.fh-tile { position: relative; }
+
+/* (optional) agar kahin koi 3-dots wali class bachi ho to chhupa do) */
+.fh-tile .more, .fh-tile .dots, .product-card .more, .product-card .dots {
+  display: none !important;
+}
+
+/* SAUCES */
+
+.step--mealSauces .category-tile.add-more {
+  grid-column: auto !important;   /* same row, no full-row span */
+  align-self: start !important;    /* don't stretch vertically */
+  height: var(--topping-h, 66px) !important;  /* match toppings row height */
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+}
+
+
+/* === Make SAUCES & MEAL SAUCES option tiles match TOPPINGS height/look === */
+
+/* Containers: keep children top-aligned, no row stretch */
+.step-body.step--sauces .options-grid,
+.step-body.step--mealSauces .options-grid,
+.step-body.step--sauces .subcategory-grid,
+.step-body.step--mealSauces .subcategory-grid {
+  align-items: start !important;
+  grid-auto-rows: var(--topping-h, 66px) !important; /* rows same height as toppings */
+  gap: var(--topping-gap, 5px) !important;
+}
+
+/* Option tiles (NOT the Add More) — normalize height & internals like toppings */
+.step-body.step--sauces .subcategory-grid > *:not(.category-tile.add-more),
+.step-body.step--mealSauces .subcategory-grid > *:not(.category-tile.add-more),
+.step-body.step--sauces .options-grid > *:not(.category-tile.add-more),
+.step-body.step--mealSauces .options-grid > *:not(.category-tile.add-more),
+.step-body.step--sauces button:not(.category-tile):not(.add-more),
+.step-body.step--mealSauces button:not(.category-tile):not(.add-more) {
+  height: var(--topping-h, 66px) !important;      /* match toppings tile height */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 10px 14px !important;
+  border-radius: 10px !important;
+  box-sizing: border-box !important;
+  align-self: start !important;                    /* prevent vertical stretch */
+}
+
+/* Ensure long labels behave like toppings (truncate/wrap as you prefer) */
+.step-body.step--sauces .subcategory-grid > *:not(.category-tile.add-more) .fh-title,
+.step-body.step--mealSauces .subcategory-grid > *:not(.category-tile.add-more) .fh-title {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.edit-chip { 
+  display: none !important;
+}
+

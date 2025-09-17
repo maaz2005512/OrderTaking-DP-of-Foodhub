@@ -1,0 +1,922 @@
+/* ===== Two-column shell that adapts to any laptop ===== */
+/* styles.css ke top par ya global CSS me */
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+:root{
+  /* right panel: never too small or too big */
+  --panel-w: clamp(280px, 27vw, 420px);
+}
+
+
+
+body{
+  font-family: 'Nunito', sans-serif;
+}
+
+body, html {
+  overflow-x: hidden !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Filter Bar === */
+ .filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+}
+
+.hamburger-icon {
+  font-size: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+/* .shop-name {
+ font-size: 18px;
+  font-weight: bold;
+  line-height: 1;
+  margin-top: 2px;
+} */
+ .shop-name{
+  display: inline-flex;
+  align-items: center;     /* ✅ perfectly centers with pills */
+  height: 32px;            /* ~ pill height */
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid #e5e7eb;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+
+.category-tile {
+  aspect-ratio: 1 / 0.75;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.category-tile:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.tab-btn {
+  font-size: 15px;
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tab-buttons {
+  display: flex;
+  align-items: center;   /* ✅ vertically align with pills */
+  gap: 10px;
+}
+
+.tab-btn {
+  background: #eee;
+  border: none;
+  /* padding: 6px 14px; */
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.tab-btn.selected {
+  background: #006eff;
+  color: white;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.filter-icon {
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+}
+
+.selected-icon {
+  background: #28a745;
+  padding: 6px;
+  border-radius: 50%;
+  color: white;
+}
+
+/* ===== Search overlay/modal ===== */
+.search-overlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.35);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: 10vh;
+  z-index: 9999;
+}
+.search-modal{
+  width: 640px; max-width: 92vw;
+  background: #fff; border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  overflow: hidden;
+}
+.search-head{
+  display:flex; align-items:center; gap:10px;
+  border-bottom:1px solid #eee; padding: 10px 12px;
+}
+.search-input{
+  flex:1 1 auto; border:1px solid #d9dbe2; border-radius:8px;
+  padding:10px 12px; outline: none; font-size: 16px;
+}
+.search-close{
+  border:none; background:#f3f4f6; border-radius:8px; padding:8px 12px;
+  cursor:pointer; font-size:18px; line-height:1;
+}
+.search-body{ max-height: 60vh; overflow:auto; padding: 8px 0; }
+.search-status{ padding: 12px; color:#666; font-size: 14px; }
+.search-list{ list-style:none; margin:0; padding:0; }
+.search-item{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 10px 14px; border-bottom:1px solid #f1f5f9;
+  cursor:pointer;
+}
+.search-item:hover{ background:#f8fafc; }
+.si-name{ font-weight:700; color:#111827; }
+.si-meta{ color:#6b7280; font-size: 12px; margin-left: 10px; }
+/* xxxxxxxxxxxxxxxx */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 12px;
+}
+
+.action-icon {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 6px 10px;
+  color: #444;
+  cursor: pointer;
+  border-radius: 4px;
+  background: transparent;
+  transition: background 0.2s ease-in-out;
+}
+
+.action-icon:hover {
+  background-color: #f2f2f2;
+}
+
+.action-icon.cancel {
+  color: red;
+}
+
+.checkout-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.outline-btn {
+  border: 2px solid #222;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.filled-btn {
+  background: #d7f3dd;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.icon-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.icon-btn {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px 6px;
+}
+
+.icon-btn.cancel {
+  color: red;
+}
+
+.icon {
+  font-size: 16px;
+} 
+
+.top-selling-wrapper {
+  margin-top: 30px;
+  grid-column: 1 / -1;
+}
+
+.top-selling-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.top-selling-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+
+.menu-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.menu-layout {
+  display: flex;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
+  flex: 1;
+}
+
+.category-tile {
+  padding: 18px;
+  font-size: 16px;
+  font-weight: 550;
+  border-radius: 6px;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  white-space: normal;
+  height: 80px;
+  width: 185px;
+}
+
+.green {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.red {
+  background-color: #c0392b;
+  color: #fff;
+}
+
+.blue {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+.add-more {
+  background-color: white;
+  color: #28a745;
+  border: 2px solid #28a745;
+}
+
+
+.checkout-panel {
+  width: 30%;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkout-buttons-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.outline-btn,
+.filled-btn {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  font-weight: 550;
+  border-radius: 6px;
+}
+
+.outline-btn {
+  border: 1px solid black;
+}
+
+.filled-btn {
+  background-color: #afd5b9;
+  color: white;
+}
+
+.icon-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.icon-btn {
+  background-color: #f0f0f0;
+  padding: 6px 12px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.icon-btn.cancel {
+  color: red;
+  background-color: #ffe5e5;
+}
+
+.cart-total {
+  width: 100%;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.total-row h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.total-amount {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.empty-msg {
+  margin-top: 20px;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+
+ /* Panel shell */
+.fh-panel { position: sticky; top: 8px; background:#fff; border-radius:12px; padding:12px; }
+
+/* Top grids */
+.fh-row.two { display:grid; grid-template-columns: 1fr 1fr;
+   column-gap: 4px;   /* ← left–right distance between the two buttons */
+  row-gap: 0;  
+  }
+
+  .fh-row.two + .fh-row.two{
+  margin-top: 12px;   /* ← upar wali row se neeche wali row ka space */
+}
+
+.fh-btn { border-radius:7px; padding:14px 3.5rem; font-weight:700; border:1px solid #d9dbe2; }
+.fh-btn.outline { background:#fff; cursor: pointer;}
+.fh-btn.solid  { background:#afd5b9; color:#fff; border-color:#afd5b9; cursor: pointer;}
+.fh-btn.pay    { background:#afd5b9; color:#fff; border-color:#afd5b9; cursor: pointer; }
+
+/* Actions row */
+.fh-actions { display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin:12px 0; }
+.fh-action { border:1px solid #eee; border-radius:10px; padding:10px; text-align:center; cursor:pointer; background:#fff; }
+.fh-action.danger { background:#ffe9e9; border-color:#ffd3d3; }
+.fh-ico { display:block; font-size:20px; margin-bottom:6px; }
+
+/* Total bar */
+.fh-totalbar { display:flex; align-items:center; justify-content:space-between; font-weight:800; padding:10px 0; font-size:22px; }
+.fh-total-label { color:#222; }
+.fh-total-amt { color:#222; }
+
+/* Discount / notes */
+.fh-discount { display:flex; gap:10px; align-items:center; margin-bottom:8px; }
+.fh-discount input { width:80px; padding:6px 8px; border:1px solid #ddd; border-radius:8px; }
+.fh-order-notes { width:100%; min-height:70px; padding:8px; border:1px solid #ddd; border-radius:10px; }
+
+/* Lines */
+.fh-lines { display:flex; flex-direction:column; gap:12px; }
+
+.fh-linecard {
+  border:1px solid #e8e8e8; border-radius:12px; background:#fff;
+  padding:12px 12px 12px 12px; position:relative;
+}
+.fh-linehead { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.fh-line-title { font-weight:700; }
+.fh-lineprice { display: none !important; }
+
+.fh-qtygrp { display:flex; align-items:center; gap:8px; }
+.fh-qtybtn { width:36px; height:30px; border-radius:8px; border:1px solid #d9dbe2; background:#f2f5fb; cursor:pointer; }
+.fh-qtyval { min-width:16px; text-align:center; font-weight:700; }
+.fh-trash { border:none; background:transparent; color:#e25555; cursor:pointer; }
+
+.fh-quicklinks { display:flex; gap:14px; margin-top:8px; }
+.fh-quicklinks .link { border:none; background:none; color:#1d6fd8; cursor:pointer; font-weight:600; }
+
+.fh-modlist { margin-top:8px; }
+.fh-modrow {
+  display:grid; grid-template-columns: 26px 1fr auto; align-items:center; gap:8px;
+  padding:6px 0; border-bottom:1px solid #f1f1f1;
+}
+.fh-modrow:last-child { border-bottom:none; }
+.fh-x { border:none; background:transparent; color:#d9534f; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.fh-modtext { color:#333; }
+.fh-modright { display:flex; align-items:center; gap:8px; color:#777; }
+.fh-modprice { font-weight:700; color:#222; }
+
+.fh-lineprice {
+  position:absolute; right:12px; bottom:12px;
+  font-weight:800;
+}
+
+.custom-modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,.35);
+  display: flex; align-items: center; justify-content: center; z-index: 9999;
+}
+.custom-modal .modal-content {
+  width: 380px; max-width: 92vw; background: #fff; border-radius: 12px;
+  padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+.custom-modal input[type="text"],
+.custom-modal input[type="number"] {
+  width: 100%;
+  border: 1px solid #d9dbe2; border-radius: 8px; outline: none;
+}
+
+.fh-sizeprice {
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 0.85rem;
+  margin: 0 6px;
+  display: inline-block;
+}
+/* Empty state reuse your own .empty-msg */
+
+
+/* ====== OVERRIDES (keep your class names) ====== */
+:root{
+  --gap: 12px;
+  --tile-h: 70px;
+  --panel-w: clamp(300px, 23vw, 360px);   /* slimmer, Foodhub-like */
+  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 10px rgba(0,0,0,.05);
+}
+
+/* 1) Two-column shell: use grid instead of flex so panel width is stable */
+.menu-page,
+.menu-layout,
+.category-grid,
+.cats-grid {
+  max-height: none !important;
+  overflow-y: visible !important;
+}
+
+.menu-layout{
+  display: grid;
+  grid-template-columns: minmax(0,1fr) var(--panel-w);
+  gap: var(--gap);
+  align-items: start;
+  padding: 12px 16px;
+}
+@media (max-width: 700px){
+  .menu-layout{ grid-template-columns: 1fr; }
+}
+
+/* 2) Left grid: equal-height tiles, Foodhub breakpoints */
+.category-grid{
+  flex: 1;
+  padding: var(--menu-gap);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-auto-rows: var(--menu-item-height); /* ✅ height change ke saath adjust */
+  gap: var(--menu-gap);
+  overflow-y: auto;
+  /* display: grid;
+  gap: var(--gap);
+  grid-auto-rows: var(--tile-h);
+  grid-template-columns: repeat(5, minmax(0,1fr));  */
+}
+@media (min-width: 1500px){ .category-grid{ grid-template-columns: repeat(6,1fr); } }
+@media (max-width: 1279px){ .category-grid{ grid-template-columns: repeat(4,1fr); } }
+@media (max-width: 1099px){ .category-grid{ grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 899px) { .category-grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 700px) { .category-grid{ grid-template-columns: 1fr; grid-auto-rows: 88px; } }
+
+/* 3) Tile cleanup: remove fixed width/ratio; keep consistent height */
+.category-tile{
+  /* kill earlier fixed size so grid can control it */
+  width: auto !important;
+  height: var(--tile-h) !important;
+  aspect-ratio: auto !important;
+
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(0,0,0,.05);
+  display:flex; align-items:center; justify-content:center;
+  text-align:center;
+  padding: 10px 12px;
+  line-height: 1.2;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: .2px;
+  max-width: 100%;
+  word-break: break-word;
+  transition: transform .06s ease, box-shadow .12s ease;
+}
+.category-tile:hover{ transform: translateY(-1px); box-shadow: 0 3px 16px rgba(0,0,0,.08); }
+
+/* keep your colors */
+.category-tile.green{ background:#28a745; color:#fff; }
+.category-tile.red{   background:#c0392b; color:#fff; }
+.category-tile.blue{  background:#2980b9; color:#fff; }
+
+/* 4) Top‑selling grid to match columns + equal height */
+.top-selling-wrapper{ grid-column:1 / -1; margin-top:10px; }
+.top-selling-title{
+  font-size:14px; font-weight:700; color:#2f3b45;
+  margin:4px 0 8px;
+}
+.top-selling-grid{
+  display:grid; gap: var(--gap);
+  grid-auto-rows: calc(var(--tile-h) - 12px);
+  grid-template-columns: repeat(5, minmax(0,1fr));
+}
+.top-selling-grid .category-tile{
+  height: calc(var(--tile-h) - 12px) !important;
+  font-size:15px !important; font-weight:600;
+  padding:10px 12px;
+}
+@media (max-width:1279px){ .top-selling-grid{ grid-template-columns: repeat(4,1fr);} }
+@media (max-width:1099px){ .top-selling-grid{ grid-template-columns: repeat(3,1fr);} }
+@media (max-width:899px) { .top-selling-grid{ grid-template-columns: repeat(2,1fr);} }
+@media (max-width:700px) { .top-selling-grid{ grid-template-columns: 1fr; } }
+
+/* 5) Right panel: slim, sticky card; no fixed 30% width */
+.checkout-panel{
+  width: auto !important;                /* override 30% */
+  position: sticky;
+  top: 10px;
+  align-self: start;
+  padding-left: 0;
+  background:#fff;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 12px;
+  box-sizing: border-box;
+}
+@media (max-width: 700px){
+  .checkout-panel{ position: static; top:auto; width: 100% !important; }
+}
+
+/* 6) Panel internal buttons wrap nicely (uses your classes) */
+.checkout-buttons-row,
+.icon-actions-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 10px;
+}
+.checkout-buttons-row > *,
+.icon-actions-row > *{
+  flex: 1 1 160px;
+  min-width: 0;
+}
+
+/* 7) Safety: prevent horizontal scroll from any child */
+.menu-layout, .menu-layout *{ min-width: 0; }
+
+
+
+/* NEW FILE */
+
+/* ===== Foodhub-match: Flavours/Sizes grid ===== */
+:root{
+  /* tweak only these to fine tune */
+  --fh-gap: 5px;          /* vertical+horizontal gutter */
+  --fh-tile-h: 66px;       /* tile height (Foodhub ≈ 92–100px) */
+  --fh-minw: 220px;        /* minimum tile width before it wraps */
+}
+
+/* wrapper grid used by CategoryNavigator */
+.subcategory-grid{
+  display: grid !important;
+  gap: var(--fh-gap) !important;
+
+  /* Foodhub on laptop ≈ 5 columns */
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-auto-rows: var(--fh-tile-h);
+
+  align-content: start;   /* ✅ no “extra space” at bottom */
+  min-width: 0;
+}
+
+/* generic child fit: works with your ProductCard without editing it */
+.subcategory-grid > *{
+  height: var(--fh-tile-h);
+  display:flex;
+  min-width: 0;
+}
+.subcategory-grid > * > *{
+  flex:1 1 auto;
+  font-size: 0.9rem;
+  min-width:0;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,.06);
+  background: #2c7da0;          /* Foodhub-ish teal/blue */
+  color: #fff;
+  font-weight: normal;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding: 6px 10px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  cursor: pointer;
+}
+
+/* remove any inner margins that push the grid down */
+.subcategory-grid > * > * *{
+  margin: 0;
+}
+
+/* hover (no scale → no extra scroll) */
+.subcategory-grid > * > *:hover{
+  background: #256d89;      /* change color here */
+  box-shadow: 0 3px 14px rgba(0,0,0,.12);
+  transform: translateY(-1px);
+  cursor: pointer;
+}
+
+/* ===== Breakpoints to match Foodhub feel ===== */
+@media (max-width: 1279px){ /* small laptops */
+  .subcategory-grid{ grid-template-columns: repeat(4, minmax(0,1fr)); }
+}
+@media (max-width: 1099px){ /* large tablets landscape */
+  .subcategory-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width: 899px){  /* tablets portrait */
+  .subcategory-grid{
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    --fh-tile-h: 90px;
+  }
+}
+@media (max-width: 700px){  /* phones */
+  .subcategory-grid{
+    grid-template-columns: 1fr;
+    --fh-tile-h: 86px;
+  }
+}
+
+/* ===== Spacing clean-ups so grid “neeche” na jaye ===== */
+/* Breadcrumb chips block */
+.subcategory-card-container{ display:flex; flex-wrap:wrap; gap:8px; margin: 0 0 10px; }
+.subcategory-card{ background:#eef2f6; color:#1b2b3a; border-radius: 999px; padding:6px 12px; }
+
+/* Back/Continue row should not reserve huge space */
+.menu-page .bottom-actions,
+.menu-page .builder-actions{
+  margin-top: 14px;
+}
+
+
+/* === Sizes view: show name and price on separate lines === */
+.sizes-grid > * { height: 66px; }                         /* your chosen height */
+.sizes-grid > * > * {
+  display:flex; flex-direction:column;                    /* stack vertically */
+  align-items:center; justify-content:center;
+  padding: 6px 10px;
+  line-height: 1.15;
+  gap: 7px;
+}
+
+/* if ProductCard uses inner spans/headings, force stack + truncate */
+.sizes-grid > * > * .pc-title,
+.sizes-grid > * > * .pc-label { 
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+}
+.sizes-grid > * > * .pc-price {
+  display:block; margin-top: 4px; font-weight: 700;
+}
+
+/* Fallback: if there are no classnames, split by <br>-like behavior */
+.sizes-grid > * > * :is(h1,h2,h3,h4,h5,h6,span,strong,div){ margin:0; }
+
+
+/* === Builder generic buttons/chips inside our step wrapper === */
+.builder-wrap .step-body :where(button, .option, .chip){
+  border: 1px solid rgba(0,0,0,.08);
+  background: #0c588b;
+  color: whitesmoke;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-weight: 600;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: background-color .12s, box-shadow .12s, transform .06s;
+  cursor: pointer;
+}
+
+
+
+/* hover */
+.builder-wrap .step-body :where(button, .option, .chip):hover{
+  /* background: #eef7ff; */
+  transform: translateY(-1px);
+}
+
+/* grid alignment for choices (in case inner component doesn't provide grid) */
+.builder-wrap .step-body{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+}
+@media (max-width: 900px){
+  .builder-wrap .step-body{ grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Special: Serve step buttons a bit taller & bold */
+.builder-wrap .step--serve :where(button, .option, .chip){
+  min-height: 52px; font-weight: 700;
+}
+
+/* Special: Sauces (base + mealSauces) look like compact chips */
+.builder-wrap .step--sauces :where(button, .option, .chip),
+.builder-wrap .step--mealSauces :where(button, .option, .chip){
+  min-height: 40px; padding: 8px 10px; border-radius: 999px;
+}
+
+
+.builder-wrap .step--serve :where(button, .option, .chip) {
+  white-space: pre-line; /* newline ko line-break banata hai */
+  line-height: 1.2;
+}
+
+
+
+/* === Builder options grid: tiny + safe === */
+:root{
+  --opt-gap: 12px;      /* columns/rows spacing */
+  --opt-h:   66px;      /* tile height (flavours jaisi) */
+}
+
+/* 1) make every step a grid */
+.builder-wrap .step-body{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+  gap: var(--opt-gap);
+  align-content:start;
+  gap: 4px;
+}
+
+/* 2) unwrap 1–2 wrapper layers so buttons grid ke direct items ban jayen */
+.builder-wrap .step-body > *{ display:contents; }
+.builder-wrap .step-body > * > *{ display:contents; }  /* keep if still stacked */
+
+/* 3) actual tiles: buttons/chips look & size */
+.builder-wrap .step-body button,
+.builder-wrap .step-body [role="option"],
+.builder-wrap .step-body .option, 
+.builder-wrap .step-body .chip {
+  min-height: var(--opt-h);
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid rgba(0,0,0,.08); border-radius:10px;
+  background:#2c7da0; color:#fff; font-weight:700;
+  padding:10px 12px; text-align:center; cursor:pointer;
+}
+
+/* 4) MEAL step: price ko next line per show (hum label me \n bhej rahe) */
+.builder-wrap .step--serve button,
+.builder-wrap .step--serve [role="option"],
+.builder-wrap .step--serve .option {
+  white-space: pre-line; line-height:1.15;
+}
+
+/* 5) sauces smaller pills (optional) */
+.builder-wrap .step--sauces :is(button,[role="option"],.option,.chip),
+.builder-wrap .step--mealSauces :is(button,[role="option"],.option,.chip){
+  min-height: 40px; border-radius:999px; font-weight:600; font-size:14px;
+}
+
+/* 6) responsiveness (like flavours) */
+@media (max-width:1279px){ .builder-wrap .step-body{ grid-template-columns:repeat(4,1fr);} }
+@media (max-width:1099px){ .builder-wrap .step-body{ grid-template-columns:repeat(3,1fr);} }
+@media (max-width: 899px){ .builder-wrap .step-body{ grid-template-columns:repeat(2,1fr);} }
+@media (max-width: 700px){ .builder-wrap .step-body{ grid-template-columns:1fr; } }
+
+
+.fh-card-wrap { position: relative; }
+
+.edit-chip{
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 2;
+  background: #fff;
+  color: #1d6fd8;
+  border: 1px solid #cfe0ff;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.edit-chip:hover{ background:#eef4ff; }
+
+/* Ensure “Add More” tile centers like others */
+.subcategory-grid .category-tile.add-more{
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* chip ko corner me pin karne ke liye */
+.product-card,
+.fh-tile { position: relative; }
+
+/* (optional) agar kahin koi 3-dots wali class bachi ho to chhupa do) */
+.fh-tile .more, .fh-tile .dots, .product-card .more, .product-card .dots {
+  display: none !important;
+}
+
+
+
+/* neutral: no change */
+.theme-inherit .product-card {
+  inherits: inherit;
+}
+
+/* red */
+.theme-red .product-card {
+  background-color: rgb(233, 73, 73);
+  border-color: #ef4444;
+  color: whitesmoke;
+}
+.theme-red .product-name { color: white; } 
+
+/* blue */
+.theme-blue .product-card {
+  background: #2c7da0;
+  border-color: #3b82f6;
+}
+/* .theme-blue .product-name { color: #111827; } */
+
+/* green */
+.theme-green .product-card {
+  background: #28a745;
+  border-color: #22c55e;
+}
+/* .theme-green .product-name { color: #111827; } */
+
+/* black */
+.theme-black .product-card {
+  background: rgb(50, 50, 50);
+  border-color: #111827;
+}
+/* .theme-black .product-name { color: #111827; } */
+
+/* Full width for single button row */
+.fh-row.two > .fh-btn:only-child {
+  grid-column: 1 / -1;
+  width: 100%;
+}

@@ -1,0 +1,170 @@
+/* ===== Foodhub-like Checkout (fhx-*) ===== */
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+body{
+  font-family: 'Nunito', sans-serif;
+}
+
+.fhx-wrap { max-width: 1280px; margin: 0 auto; padding: 12px 16px; background: #fafafa; }
+.fhx-top { display: grid; grid-template-columns: 140px 1fr 140px; align-items: center; gap: 8px; margin-bottom: 8px; }
+.fhx-top-center { text-align: center; font-weight: 600; color: #666; }
+.fhx-top-end { text-align: right; color: #666; }
+.fhx-ghost { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 8px 12px; cursor: pointer; }
+
+.fhx-grid { display: grid; grid-template-columns: 1.25fr 0.95fr; gap: 16px; }
+@media (max-width: 1000px) { .fhx-grid { grid-template-columns: 1fr; } }
+
+.fhx-card { background: #fff; border: 1px solid #eaeaea; border-radius: 12px; padding: 14px; }
+
+.fhx-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+.fhx-tab { text-align: left; border: 1px solid #ddd; background: #f7f7f7; border-radius: 8px; padding: 12px; display: flex; gap: 10px; align-items: center; }
+.fhx-tab.active { border-color: #69b56a; background: #eef8ef; box-shadow: inset 0 -3px 0 #69b56a; }
+.fhx-tab-icon { font-size: 18px; }
+.fhx-tab-text small { color: #888; }
+
+.fhx-row-3 { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+@media (max-width: 900px) { .fhx-row-3 { grid-template-columns: 1fr; } }
+
+.fhx-field label { display: block; font-size: 12px; color: #444; margin-bottom: 6px; }
+.fhx-input { width: 100%; border: 1px solid #e3e3e3; border-radius: 10px; padding: 10px 12px; font-size: 14px; outline: none; }
+.fhx-input:focus { border-color: #a3d3ff; box-shadow: 0 0 0 3px #e7f3ff; }
+.req { color: #e74c3c; margin-left: 2px; }
+.fhx-add-address { margin-top: 6px; margin-bottom: 8px; font-weight: 600; color: #666; }
+
+.fhx-section-title { margin-top: 14px; margin-bottom: 8px; font-weight: 700; letter-spacing: .02em; }
+
+.fhx-chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.fhx-chip { border: 1px solid #ddd; background: #fff; padding: 10px 12px; border-radius: 8px; font-weight: 600; }
+.fhx-chip.active { background: #eee; border-color: #cfcfcf; }
+
+.fhx-left-actions { display: flex; gap: 12px; margin-top: 12px; }
+.fhx-btn { background: #69b56a; border: 1px solid #69b56a; color: #fff; padding: 10px 14px; border-radius: 10px; font-weight: 700; cursor: pointer; }
+.fhx-btn.ghost { background: #fff; color: #333; border-color: #ddd; }
+.fhx-btn.success { background: #8fd19a; border-color: #8fd19a; }
+.fhx-btn.wide { width: 100%; }
+.fhx-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+.fhx-right { display: grid; gap: 12px; }
+.fhx-right-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+
+.fhx-toolbar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; align-items: start; margin-top: 6px; }
+.fhx-tool { display: grid; grid-template-columns: 22px 1fr; align-items: center; gap: 6px; padding: 10px 12px; border: 1px solid #eee; border-radius: 10px; background: #fff; }
+.fhx-tool textarea { grid-column: 1 / -1; margin-top: 6px; }
+.fhx-tool.danger { border-color: #f3d0ce; background: #fff5f5; }
+
+.fhx-discount { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; grid-column: 1 / -1; margin-top: 6px; }
+
+.fhx-total-row { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; margin-top: 8px; border-top: 1px solid #eee; font-weight: 700; }
+.fhx-total-amount { font-size: 20px; }
+
+.fhx-basket { min-height: 280px; }
+.fhx-empty { text-align: center; color: #777; padding: 40px 10px; }
+.fhx-basket-list { display: flex; flex-direction: column; gap: 10px; }
+
+.fhx-basket-item { border: 1px solid #f0f0f0; border-radius: 10px; padding: 10px; display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+.fhx-b-name { font-weight: 700; }
+.fhx-b-meta { color: #666; font-size: 12px; margin-top: 2px; }
+.fhx-b-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.fhx-tag { font-size: 11px; padding: 3px 8px; border-radius: 999px; background: #f5f5f5; border: 1px solid #eee; }
+.fhx-b-extras { display: flex; gap: 6px; margin-top: 6px; }
+.fhx-pill { font-size: 11px; padding: 3px 8px; border-radius: 999px; background: #fafafa; border: 1px solid #eee; }
+.fhx-b-right { text-align: right; }
+.fhx-b-qty { color: #666; font-size: 12px; margin-bottom: 4px; }
+.fhx-b-price { font-weight: 800; }
+
+
+/* ===== Fix: Long description wrapping in basket lines ===== */
+.fh-modrow {
+  align-items: flex-start;       /* ✅ text top aligned */
+}
+
+.fh-modtext {
+  color: #333;
+  white-space: normal !important;  /* ✅ allow wrapping (multi-line) */
+  word-break: break-word !important; /* ✅ break long words mid-word if needed */
+  line-height: 1.4;               /* ✅ more readable spacing */
+  max-width: 100%;                /* ✅ never overflow container */
+  font-size: 13.5px;              /* ✅ a bit smaller for mobile */
+}
+
+/* ✅ On smaller laptops and mobiles: make sure text shrinks gracefully */
+@media (max-width: 900px) {
+  .fh-modtext {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+}
+
+@media (max-width: 600px) {
+  .fh-modtext {
+    font-size: 12.5px;
+    line-height: 1.3;
+  }
+}
+
+
+.fhx-charges {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 12px 0;
+  padding: 10px 0;
+}
+
+.fhx-charges h4 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.fhx-charge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.fhx-charge-row label {
+  font-size: 13px;
+  color: #444;
+  flex: 1;
+}
+
+.fhx-charge-row .fhx-input {
+  flex: 0 0 100px;
+  padding: 6px 8px;
+  text-align: right;
+}
+
+
+.fhx-address-block {
+  margin-top: 10px;
+  display: grid;
+  gap: 12px;
+}
+
+.autocomplete-dropdown {
+  border: 1px solid #ccc;
+  background: #fff;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 2000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.suggestion-item {
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.suggestion-item:hover {
+  background: #f5f5f5;
+}
+.loading {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 12px;
+  color: gray;
+}
